@@ -33,7 +33,26 @@ async function readBooks(req: Request, res: Response) {
     }
 }
 
+async function deleteBook(req: Request, res: Response) {
+    const { id } = req.params;
+    try {
+        const book: Book = (await bookRepository.getBookById({ id })).rows[0];
+        if (!book) {
+            res.sendStatus(404);
+            return;
+        }
+
+        await bookRepository.deleteBookById({ id });
+
+        res.sendStatus(204);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+}
+
 export {
     insertBook,
-    readBooks
+    readBooks,
+    deleteBook
 }
