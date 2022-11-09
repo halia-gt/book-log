@@ -1,8 +1,9 @@
 export type Book = {
     id?: number,
     title: string,
+    author: string,
     pages: number,
-    rating: number,
+    rating?: number,
     genre: string,
     series: boolean,
     format: string,

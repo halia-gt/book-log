@@ -1,12 +1,11 @@
 import express from "express";
-import { Request, Response } from "express";
+import router from "./routers/books.router.js";
 
 const server = express();
+server.use(express.json());
 
-server.get("/health", (req: Request, res: Response) => {
-    res.send('ok');
-});
+server.use(router);
 
 server.listen(4000, () => {
     console.log("Running on port 4000");
-})
+});
