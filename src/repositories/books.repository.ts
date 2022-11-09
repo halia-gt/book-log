@@ -5,6 +5,25 @@ async function postBook ({ title, authorId, pages, genre, series, format, date_s
     return connection.query(query, [title, authorId, pages, genre, series, format, date_started]);
 }
 
+async function getBooks () {
+    const query = `SELECT
+        books.id,
+        title,
+        authors.name AS author,
+        pages,
+        genre,
+        series,
+        format,
+        date_started,
+        date_finished
+        FROM books
+        JOIN authors ON authors.id = books.author_id
+        ORDER BY date_finished DESC;
+    `;
+    return connection.query(query);
+}
+
 export {
     postBook,
+    getBooks
 };

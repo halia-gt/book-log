@@ -21,6 +21,19 @@ async function insertBook(req: Request, res: Response) {
     }  
 }
 
+async function readBooks(req: Request, res: Response) {
+    try {
+        const books: Book[] = (await bookRepository.getBooks()).rows;
+
+        res.send(books);
+
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+}
+
 export {
     insertBook,
+    readBooks
 }
