@@ -51,8 +51,29 @@ async function deleteBook(req: Request, res: Response) {
     }
 }
 
+async function updateBook(req: Request, res: Response) {
+    const { id } = req.params;
+    const { rating, date_finished } = res.locals.body;
+
+    try {
+        const book: Book = (await bookRepository.getBookById({ id })).rows[0];
+        if (!book) {
+            res.sendStatus(404);
+            return;
+        }
+
+        await bookRepository.updateFinishedBook({ id, rating, date_finished });
+
+        res.sendStatus(202);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+}
+
 export {
     insertBook,
     readBooks,
-    deleteBook
+    deleteBook,
+    updateBook
 }

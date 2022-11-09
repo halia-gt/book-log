@@ -11,6 +11,7 @@ async function getBooks () {
         title,
         authors.name AS author,
         pages,
+        rating,
         genre,
         series,
         format,
@@ -29,6 +30,7 @@ async function getBookById ({ id }) {
         title,
         authors.name AS author,
         pages,
+        rating,
         genre,
         series,
         format,
@@ -46,9 +48,19 @@ async function deleteBookById ({ id }) {
     return connection.query(query, [id]);
 }
 
+async function updateFinishedBook ({ id, rating, date_finished  }) {
+    const query: string = `UPDATE books SET
+        rating = $2,
+        date_finished = $3
+        WHERE books.id = $1;
+    `;
+    return connection.query(query, [id, rating, date_finished]);
+}
+
 export {
     postBook,
     getBooks,
     getBookById,
-    deleteBookById
+    deleteBookById,
+    updateFinishedBook
 };
