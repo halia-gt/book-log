@@ -10,7 +10,7 @@ const bookSchema = joi.object({
     series: joi.boolean().required(),
     format: joi.string().valid("eBook", "Physical", "Manga", "Audiobook").required(),
     date_started: joi.date().required(),
-    date_finished: joi.date()
+    date_finished: joi.date().min(joi.ref("date_started"))
 });
 
 export { bookSchema };
