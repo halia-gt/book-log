@@ -7,16 +7,16 @@ async function postBook ({ title, authorId, pages, genre, series, format, date_s
 
 async function getBooks () {
     const query: string = `SELECT
-        books.id,
-        title,
-        authors.name AS author,
-        pages,
-        rating,
-        genre,
-        series,
-        format,
-        date_started,
-        date_finished
+            books.id,
+            title,
+            authors.name AS author,
+            pages,
+            rating,
+            genre,
+            series,
+            format,
+            date_started,
+            date_finished
         FROM books
         JOIN authors ON authors.id = books.author_id
         ORDER BY date_finished DESC;
@@ -26,16 +26,16 @@ async function getBooks () {
 
 async function getBookById ({ id }) {
     const query: string = `SELECT
-        books.id,
-        title,
-        authors.name AS author,
-        pages,
-        rating,
-        genre,
-        series,
-        format,
-        date_started,
-        date_finished
+            books.id,
+            title,
+            authors.name AS author,
+            pages,
+            rating,
+            genre,
+            series,
+            format,
+            date_started,
+            date_finished
         FROM books
         JOIN authors ON authors.id = books.author_id
         WHERE books.id = $1;

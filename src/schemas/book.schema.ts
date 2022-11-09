@@ -1,6 +1,6 @@
 import joi from "joi";
 
-const bookSchema = joi.object({
+const bookSchema: joi.ObjectSchema<any> = joi.object({
     id: joi.number().integer(),
     title: joi.string().required(),
     author: joi.string().required(),
