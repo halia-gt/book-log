@@ -34,13 +34,8 @@ async function readBooks(req: Request, res: Response) {
 }
 
 async function deleteBook(req: Request, res: Response) {
-    const id: string = req.params.id;
+    const id: string = res.locals.id;
     try {
-        const book: Book = (await bookRepository.getBookById({ id })).rows[0];
-        if (!book) {
-            res.sendStatus(404);
-            return;
-        }
 
         await bookRepository.deleteBookById({ id });
 
@@ -52,17 +47,31 @@ async function deleteBook(req: Request, res: Response) {
 }
 
 async function finishReadingBook(req: Request, res: Response) {
-    const id: string = req.params.id;
+    const id: string = res.locals.id;
     const data: finishedBook = res.locals.body;
 
     try {
-        const book: Book = (await bookRepository.getBookById({ id })).rows[0];
-        if (!book) {
-            res.sendStatus(404);
-            return;
-        }
 
-        await bookRepository.updateFinishedBook({ id, rating: data.rating, date_finished: data.date_finished });
+        await bookRepository.postFinishedBook({ id, rating: data.rating, date_finished: data.date_finished });
+
+        res.sendStatus(202);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+}
+
+async function updateBook(req: Request, res: Response) {
+    const id: string = res.locals.id;
+    const newBook: Book = res.locals.body;
+
+    try {
+
+        if (newBook.date_finished && newBook.rating) {
+            await bookRepository.updateFinishedBook(newBook, id);
+        } else {
+            await bookRepository.updateUnfinishedBook(newBook, id);
+        }
 
         res.sendStatus(202);
     } catch (error) {
@@ -75,5 +84,6 @@ export {
     insertBook,
     readBooks,
     deleteBook,
-    finishReadingBook
+    finishReadingBook,
+    updateBook
 };

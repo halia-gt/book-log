@@ -6,8 +6,8 @@ const router: Router = Router();
 
 router.post("/books", booksMiddleware.bookSchemaValidation, booksCountroller.insertBook);
 router.get("/books", booksCountroller.readBooks);
-router.delete("/books/:id", booksCountroller.deleteBook);
-router.post("/books/finished/:id", booksMiddleware.finishedBookSchemaValidation, booksCountroller.finishReadingBook);
-router.put("/books/:id", booksMiddleware.bookSchemaValidation, booksCountroller.finishReadingBook);
+router.delete("/books/:id", booksMiddleware.bookIdValidation, booksCountroller.deleteBook);
+router.post("/books/finished/:id", booksMiddleware.finishedBookSchemaValidation, booksMiddleware.bookIdValidation, booksCountroller.finishReadingBook);
+router.put("/books/:id", booksMiddleware.bookSchemaValidation, booksMiddleware.bookIdValidation, booksCountroller.updateBook);
 
 export default router;
