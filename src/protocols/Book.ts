@@ -9,4 +9,11 @@ export type Book = {
     format: string,
     date_started: Date,
     date_finished?: Date
-}
+};
+
+export type Author = {
+    id: number,
+    name: string
+};
+
+export type finishedBook = Pick<Book, "rating" | "date_finished">;

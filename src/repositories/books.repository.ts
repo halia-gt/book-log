@@ -1,6 +1,8 @@
+import { QueryResult } from "pg";
 import { connection } from "../database/db.js";
+import { Book } from "../protocols/Book.js";
 
-async function postBook ({ title, authorId, pages, genre, series, format, date_started }) {
+async function postBook ({ title, authorId, pages, genre, series, format, date_started }): Promise<QueryResult> {
     const query: string = `INSERT INTO books (title, author_id, pages, genre, series, format, date_started) VALUES ($1, $2, $3, $4, $5, $6, $7);`;
     return connection.query(query, [title, authorId, pages, genre, series, format, date_started]);
 }
@@ -24,7 +26,7 @@ async function getBooks () {
     return connection.query(query);
 }
 
-async function getBookById ({ id }) {
+async function getBookById ({ id }): Promise<QueryResult<Book>> {
     const query: string = `SELECT
             books.id,
             title,
@@ -43,12 +45,12 @@ async function getBookById ({ id }) {
     return connection.query(query, [id]);
 }
 
-async function deleteBookById ({ id }) {
+async function deleteBookById ({ id }): Promise<QueryResult> {
     const query: string = `DELETE FROM books WHERE id = $1;`;
     return connection.query(query, [id]);
 }
 
-async function updateFinishedBook ({ id, rating, date_finished  }) {
+async function updateFinishedBook ({ id, rating, date_finished  }): Promise<QueryResult> {
     const query: string = `UPDATE books SET
         rating = $2,
         date_finished = $3

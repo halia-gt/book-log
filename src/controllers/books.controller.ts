@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Book } from "../protocols/Book.js";
+import { Book, finishedBook } from "../protocols/Book.js";
 import * as authorRepository from "../repositories/authors.repository.js";
 import * as bookRepository from "../repositories/books.repository.js";
 
@@ -7,7 +7,7 @@ async function insertBook(req: Request, res: Response) {
     const book: Book = res.locals.body;
 
     try {
-        let authorId: string | void = (await authorRepository.getAuthorIdByName({ name: book.author })).rows[0]?.id;
+        let authorId: number = Number((await authorRepository.getAuthorIdByName({ name: book.author })).rows[0]?.id);
         if (!authorId) {
             authorId = (await authorRepository.createAuthor({ name: book.author })).rows[0].id;
         }
@@ -53,7 +53,7 @@ async function deleteBook(req: Request, res: Response) {
 
 async function finishReadingBook(req: Request, res: Response) {
     const id: string = req.params.id;
-    const updatedBook: Book = res.locals.body;
+    const data: finishedBook = res.locals.body;
 
     try {
         const book: Book = (await bookRepository.getBookById({ id })).rows[0];
@@ -62,7 +62,7 @@ async function finishReadingBook(req: Request, res: Response) {
             return;
         }
 
-        await bookRepository.updateFinishedBook({ id, rating: updatedBook.rating, date_finished: updatedBook.date_finished });
+        await bookRepository.updateFinishedBook({ id, rating: data.rating, date_finished: data.date_finished });
 
         res.sendStatus(202);
     } catch (error) {
@@ -76,4 +76,4 @@ export {
     readBooks,
     deleteBook,
     finishReadingBook
-}
+};

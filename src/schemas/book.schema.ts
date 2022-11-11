@@ -13,4 +13,9 @@ const bookSchema: joi.ObjectSchema<any> = joi.object({
     date_finished: joi.date().min(joi.ref("date_started"))
 });
 
-export { bookSchema };
+const finishedBookSchema = joi.object({
+    rating: joi.number().required(),
+    date_finished: joi.date()
+});
+
+export { bookSchema, finishedBookSchema };
