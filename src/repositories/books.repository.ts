@@ -7,7 +7,7 @@ async function postBook ({ title, authorId, pages, genre, series, format, date_s
     return connection.query(query, [title, authorId, pages, genre, series, format, date_started]);
 }
 
-async function getBooks () {
+async function getBooks ():Promise<QueryResult<Book>> {
     const query: string = `SELECT
             books.id,
             title,
@@ -59,7 +59,7 @@ async function postFinishedBook ({ id, rating, date_finished  }): Promise<QueryR
     return connection.query(query, [id, rating, date_finished]);
 }
 
-async function updateUnfinishedBook (book: Book, id: string) {
+async function updateUnfinishedBook (book: Book, id: string): Promise<QueryResult> {
     const query: string = `UPDATE books SET
             title = $1,
             pages = $2,
@@ -72,7 +72,7 @@ async function updateUnfinishedBook (book: Book, id: string) {
     return connection.query(query, [book.title, book.pages, book.genre, book.series, book.format, book.date_started, id]);
 }
 
-async function updateFinishedBook (book: Book, id: string) {
+async function updateFinishedBook (book: Book, id: string): Promise<QueryResult> {
     const query: string = `UPDATE books SET
             title = $1,
             pages = $2,

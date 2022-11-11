@@ -1,10 +1,12 @@
 import express from "express";
-import router from "./routers/books.router.js";
+import bookRouter from "./routers/books.router.js";
+import statusRouter from "./routers/status.router.js";
 
 const server = express();
 server.use(express.json());
 
-server.use(router);
+server.use(bookRouter);
+server.use(statusRouter);
 
 server.listen(4000, () => {
     console.log("Running on port 4000");
