@@ -3,6 +3,10 @@
 
 A simple aplication to log the books you read.
 
+## About this aplication
+
+As a fun fact, the dump for the database contains (aside from some tests) real books that I read this year. In the near future I plan to add a few features to get more status from this.
+
 
 ## API documentation
 
