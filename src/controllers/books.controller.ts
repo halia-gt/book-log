@@ -3,7 +3,7 @@ import { Book, finishedBook } from "../protocols/Book.js";
 import * as authorRepository from "../repositories/authors.repository.js";
 import * as bookRepository from "../repositories/books.repository.js";
 
-async function insertBook(req: Request, res: Response) {
+async function insertBook(req: Request, res: Response): Promise<void> {
     const book: Book = res.locals.body;
 
     try {
@@ -21,7 +21,7 @@ async function insertBook(req: Request, res: Response) {
     }  
 }
 
-async function readBooks(req: Request, res: Response) {
+async function readBooks(req: Request, res: Response): Promise<void> {
     try {
         const books: Book[] = (await bookRepository.getBooks()).rows;
 
@@ -33,7 +33,7 @@ async function readBooks(req: Request, res: Response) {
     }
 }
 
-async function deleteBook(req: Request, res: Response) {
+async function deleteBook(req: Request, res: Response): Promise<void> {
     const id: string = res.locals.id;
     try {
 
@@ -46,7 +46,7 @@ async function deleteBook(req: Request, res: Response) {
     }
 }
 
-async function finishReadingBook(req: Request, res: Response) {
+async function finishReadingBook(req: Request, res: Response): Promise<void> {
     const id: string = res.locals.id;
     const data: finishedBook = res.locals.body;
 
@@ -61,7 +61,7 @@ async function finishReadingBook(req: Request, res: Response) {
     }
 }
 
-async function updateBook(req: Request, res: Response) {
+async function updateBook(req: Request, res: Response): Promise<void> {
     const id: string = res.locals.id;
     const newBook: Book = res.locals.body;
 

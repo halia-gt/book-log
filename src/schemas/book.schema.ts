@@ -1,6 +1,6 @@
 import joi from "joi";
 
-const bookSchema: joi.ObjectSchema<any> = joi.object({
+const bookSchema: joi.ObjectSchema = joi.object({
     id: joi.number().integer(),
     title: joi.string().required(),
     author: joi.string().required(),
@@ -13,7 +13,7 @@ const bookSchema: joi.ObjectSchema<any> = joi.object({
     date_finished: joi.date().min(joi.ref("date_started"))
 });
 
-const finishedBookSchema = joi.object({
+const finishedBookSchema: joi.ObjectSchema = joi.object({
     rating: joi.number().required(),
     date_finished: joi.date()
 });

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import * as statusRepository from "../repositories/status.repository.js";
 
-async function readMainStatus(req: Request, res: Response) {
+async function readMainStatus(req: Request, res: Response): Promise<void> {
     try {
         const status: {
             total_books: number,

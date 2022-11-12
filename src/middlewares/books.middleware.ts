@@ -3,7 +3,7 @@ import { Book } from "../protocols/Book.js";
 import { bookSchema, finishedBookSchema } from "../schemas/book.schema.js";
 import * as bookRepository from "../repositories/books.repository.js";
 
-function bookSchemaValidation (req: Request, res: Response, next: NextFunction) {
+function bookSchemaValidation (req: Request, res: Response, next: NextFunction): void {
     const { error } = bookSchema.validate(req.body, { abortEarly: false });
     if (error) {
         const errors: string[] = error.details.map(error => error.message);
@@ -15,7 +15,7 @@ function bookSchemaValidation (req: Request, res: Response, next: NextFunction) 
     next();
 }
 
-function finishedBookSchemaValidation (req: Request, res: Response, next: NextFunction) {
+function finishedBookSchemaValidation (req: Request, res: Response, next: NextFunction): void {
     const { error } = finishedBookSchema.validate(req.body, { abortEarly: false });
     if (error) {
         const errors: string[] = error.details.map(error => error.message);
@@ -27,7 +27,7 @@ function finishedBookSchemaValidation (req: Request, res: Response, next: NextFu
     next();
 }
 
-async function bookIdValidation (req: Request, res: Response, next: NextFunction) {
+async function bookIdValidation (req: Request, res: Response, next: NextFunction): Promise<void> {
     const id: string = req.params.id;
 
     if (!id) {
