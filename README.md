@@ -103,7 +103,7 @@ Expected return: 200
 ```bash
 npm i
 ```
-3. Create an `.env` file with a `DATABASE_URL` as in example
+3. Create an `.env` file with a `DATABASE_URL` as in `.env.example` file
 4. Create a local postgres database using the `dump.sql` file
 5. Start the application on the root of the project
 ```bash
